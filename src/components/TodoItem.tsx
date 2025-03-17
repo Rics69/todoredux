@@ -1,3 +1,6 @@
+import {useDispatch} from "react-redux";
+import {removeTodo, toggleTodoComplete} from "../store/todoSlice.ts";
+
 interface TodoProps {
     id: string;
     text: string;
@@ -6,11 +9,13 @@ interface TodoProps {
     setComplete: (id:string) => void;
 }
 
-const TodoItem = ({id, text, completed, removeTodo, setComplete}: TodoProps) => {
+const TodoItem = ({id, text, completed}: TodoProps) => {
+    const dispatch = useDispatch()
+
     return <li>
-        <input onChange={() => setComplete(id)} type="checkbox" checked={completed}/>
+        <input onChange={() => dispatch(toggleTodoComplete({id}) )} type="checkbox" checked={completed}/>
         <span>{text}</span>
-        <span onClick={() => removeTodo(id)} className='delete'>&times;</span>
+        <span onClick={() => dispatch(removeTodo({id}))} className='delete'>&times;</span>
     </li>
 }
 

@@ -1,20 +1,10 @@
 import TodoItem from "./TodoItem.tsx";
+import {useSelector} from "react-redux";
 
-interface TodoItemProp {
-    id: string;
-    text: string;
-    completed: boolean;
-}
-
-interface TodoProps {
-    todos: TodoItemProp[];
-    setComplete: (id: string) => void;
-    removeTodo: (id: string) => void;
-}
-
-const TodoList = ({todos, setComplete, removeTodo}: TodoProps) => {
+const TodoList = () => {
+    const todos = useSelector(state => state.todos.todos)
     return <ul>
-        {todos.map(todo => <TodoItem key={todo.id} setComplete={setComplete} removeTodo={removeTodo} {...todo} />)}
+        {todos.map(todo => <TodoItem key={todo.id} {...todo} />)}
     </ul>
 }
 
